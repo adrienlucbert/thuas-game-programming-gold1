@@ -10,16 +10,11 @@ public class PlayerController : AStateContext
     override public void SetState(IState value)
     {
         base.SetState(value);
-        this.viewModel.StateName = this.State.GetName();
+        this.viewModel.StateName = this.State.GetType().Name;
     }
 
-    void Start()
+    private void Start()
     {
         this.SetState(new PlayerStates.IdleState());
-    }
-
-    void Update()
-    {
-        this.State.Update();
     }
 }

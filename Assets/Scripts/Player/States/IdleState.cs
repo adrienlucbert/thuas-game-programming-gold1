@@ -4,11 +4,6 @@ namespace PlayerStates
 {
     public class IdleState : AState<PlayerController>
     {
-        override public string GetName()
-        {
-            return "IdleState";
-        }
-
         override public void Update()
         {
             if (Input.GetButtonDown("Jump"))

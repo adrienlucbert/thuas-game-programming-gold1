@@ -4,17 +4,7 @@ namespace PlayerStates
 {
     public class MovingState : AState<PlayerController>
     {
-        private Rigidbody rigidBody;
-
-        override public string GetName()
-        {
-            return "MovingState";
-        }
-
-        public override void Start()
-        {
-            this.rigidBody = this.context.GetComponent<Rigidbody>();
-        }
+        private float moveSpeed = 10.0f;
 
         override public void Update()
         {
@@ -23,7 +13,9 @@ namespace PlayerStates
             else if (Input.GetAxisRaw("Horizontal") == 0f && Input.GetAxisRaw("Vertical") == 0f)
                 this.context.SetState(new IdleState());
 
-            this.rigidBody.AddForce(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical")) * 1000f * Time.deltaTime);
+            var direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+            direction = this.context.transform.InverseTransformDirection(direction);
+            this.context.transform.Translate(direction * this.moveSpeed * Time.deltaTime);
         }
     }
 }

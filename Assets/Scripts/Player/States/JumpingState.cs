@@ -2,18 +2,31 @@ using UnityEngine;
 
 namespace PlayerStates
 {
-	public class JumpingState : AState<PlayerController>
-	{
-		override public string GetName()
-		{
-			return "JumpingState";
-		}
+    public class JumpingState : AState<PlayerController>
+    {
+        private bool isJumping = false;
+        private float thrust = 5.0f;
 
-		override public void Update()
-		{
-			if (Input.GetButtonDown("Jump"))
-				this.context.SetState(new HoveringState());
+        public JumpingState(bool IsJumping = false)
+        {
+            this.isJumping = IsJumping;
+        }
 
-		}
-	}
+        override public void Update()
+        {
+            if (Input.GetButtonDown("Jump"))
+                this.context.SetState(new HoveringState());
+
+            if (!this.isJumping)
+            {
+                this.isJumping = true;
+                this.context.GetComponent<Rigidbody>().AddForce(Vector3.up * thrust, ForceMode.Impulse);
+            }
+        }
+
+        public override void OnCollisionEnter(Collision collision)
+        {
+            this.context.SetState(new IdleState());
+        }
+    }
 }
