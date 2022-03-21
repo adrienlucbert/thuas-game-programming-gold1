@@ -3,7 +3,11 @@ using UnityEngine;
 public class CameraFollow : AStateContext
 {
     [SerializeField] public Camera attachedCamera;
-    public readonly Vector3 offset = new Vector3(0f, 2f, -3.5f);
+    public Vector3 StartOffset
+    {
+        get;
+        private set;
+    }
 
     public void FixCamera(bool IsFixed = true)
     {
@@ -13,8 +17,14 @@ public class CameraFollow : AStateContext
             this.SetState(new CameraFollowStates.CatchUpState());
     }
 
+    public Vector3 GetOffset()
+    {
+        return this.attachedCamera.transform.position - this.transform.position;
+    }
+
     private void Start()
     {
-        this.SetState(new CameraFollowStates.CatchUpState());
+        this.StartOffset = this.GetOffset();
+        this.SetState(new CameraFollowStates.FollowState());
     }
 }

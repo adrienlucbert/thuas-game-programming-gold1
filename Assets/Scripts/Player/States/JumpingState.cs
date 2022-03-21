@@ -14,7 +14,9 @@ namespace PlayerStates
 
         override public void Update()
         {
-            if (Input.GetButtonDown("Jump"))
+            if (this.context.IsOutOfBounds())
+                this.context.SetState(new ResettingState());
+            else if (Input.GetButtonDown("Jump"))
                 this.context.SetState(new HoveringState());
 
             if (!this.isJumping)

@@ -4,7 +4,7 @@ namespace CameraFollowStates
     {
         override public void LateUpdate()
         {
-            this.context.attachedCamera.transform.position = this.context.transform.position + this.context.offset;
+            this.context.attachedCamera.transform.position = this.context.transform.position + this.context.StartOffset;
         }
     }
 }

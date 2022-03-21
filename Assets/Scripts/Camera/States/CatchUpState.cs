@@ -11,7 +11,7 @@ namespace CameraFollowStates
         override public void Enter()
         {
             this.startTime = Time.time;
-            this.startOffset = this.context.attachedCamera.transform.position - this.context.transform.position;
+            this.startOffset = this.context.GetOffset();
         }
 
         private Vector3 GetOffset()
@@ -21,13 +21,12 @@ namespace CameraFollowStates
             {
                 float t = elapsedTime / this.duration;
                 t = t * t * (3f - 2f * t);
-                Vector3 offset = Vector3.Lerp(this.startOffset, this.context.offset, t);
-                return offset;
+                return Vector3.Lerp(this.startOffset, this.context.StartOffset, t);
             }
             else
             {
                 this.context.SetState(new FollowState());
-                return this.context.offset;
+                return this.context.StartOffset;
             }
         }
 

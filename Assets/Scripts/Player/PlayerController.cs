@@ -6,6 +6,12 @@ using UnityEngine;
 public class PlayerController : AStateContext
 {
     [SerializeField] private PlayerViewModel viewModel;
+    private float minY = -10f; // minimum Y coordinate before resetting player position
+    public Vector3 StartPosition
+    {
+        get;
+        private set;
+    }
 
     override public void SetState(IState value)
     {
@@ -15,6 +21,12 @@ public class PlayerController : AStateContext
 
     private void Start()
     {
+        this.StartPosition = this.transform.position;
         this.SetState(new PlayerStates.IdleState());
+    }
+
+    public bool IsOutOfBounds()
+    {
+        return this.transform.position.y < this.minY;
     }
 }
