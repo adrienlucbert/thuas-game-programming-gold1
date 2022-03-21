@@ -5,7 +5,7 @@ namespace PlayerStates
     public class JumpingState : AState<PlayerController>
     {
         private bool isJumping = false;
-        private float thrust = 5.0f;
+        private readonly float thrust = 5.0f;
 
         public JumpingState(bool IsJumping = false)
         {

@@ -4,7 +4,7 @@ namespace PlayerStates
 {
     public class MovingState : AState<PlayerController>
     {
-        private float moveSpeed = 10.0f;
+        private readonly float moveSpeed = 10.0f;
 
         override public void Update()
         {
