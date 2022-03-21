@@ -5,10 +5,10 @@ namespace PlayerStates
     public class HoveringState : AState<PlayerController>
     {
         private float elapsedTime = 0f;
-        float hoverAmplitude = .25f; // oscillations amplitude
-        float hoverSpeed = 7; // oscillations per second
-        float rotationSpeed = 100f; // hovering rotation speed
-        Vector3 startPosition;
+        private readonly float hoverAmplitude = .25f; // oscillations amplitude
+        private readonly float hoverSpeed = 7; // oscillations per second
+        private readonly float rotationSpeed = 100f; // hovering rotation speed
+        private Vector3 startPosition;
         private CameraFollow cameraFollow;
 
         public override void Enter()
